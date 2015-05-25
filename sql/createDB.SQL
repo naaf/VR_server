@@ -102,7 +102,8 @@ CREATE TABLE "message"(
  "from_id" Integer NOT NULL,
  "to_id" Integer NOT NULL,
  "suject" Character varying(256),
- "body" Text
+ "body" Text,
+ "date_creation" Timestamp NOT NULL
 )
 WITH (OIDS=FALSE)
 ;
@@ -119,7 +120,9 @@ CREATE TABLE "depot"(
  "image" Bytea NOT NULL,
  "suject" Character varying(256) NOT NULL,
  "body" Text NOT NULL,
- "disponibiilte" Character varying(15) NOT NULL
+ "disponibiilte" Character varying(15) NOT NULL,
+ "from_id" Integer,
+ "date_creation" Timestamp NOT NULL
 )
 WITH (OIDS=FALSE)
 ;

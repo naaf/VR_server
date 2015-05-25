@@ -8,7 +8,9 @@ scalaVersion := "2.11.6"
 
 libraryDependencies ++= Seq(
   javaJdbc,
-  javaEbean,
   cache,
-  javaWs
+  javaWs,
+  javaJpa,
+  "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
+  "org.hibernate" % "hibernate-entitymanager" % "4.3.8.Final"
 )
