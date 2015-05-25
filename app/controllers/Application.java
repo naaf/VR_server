@@ -3,6 +3,7 @@ package controllers;
 import java.util.Arrays;
 import java.util.List;
 import dao.UtilisateurDao;
+import entity.FilActualite;
 import entity.User;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -21,5 +22,7 @@ public class Application extends Controller
     List<User> l = dao.findAll();
     return ok(index.render("Your new application is ready." + l));
   }
+  
+
 
 }
