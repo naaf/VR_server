@@ -1,9 +1,8 @@
 package dao;
 
 import java.util.List;
-import entity.FilActualite;
-import entity.Message;
 import play.db.jpa.JPA;
+import entity.FilActualite;
 
 public class ActualiteDao
 {

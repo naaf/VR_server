@@ -1,9 +1,8 @@
 package dao;
 
 import java.util.List;
-import entity.Depot;
-import entity.FilActualite;
 import play.db.jpa.JPA;
+import entity.Depot;
 
 public class DepotDao
 {

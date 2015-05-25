@@ -1,9 +1,8 @@
 package dao;
 
 import java.util.List;
-import dant.linkedin.core.Country;
-import entity.User;
 import play.db.jpa.JPA;
+import entity.User;
 
 public class UtilisateurDao
 {

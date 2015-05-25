@@ -1,7 +1,6 @@
 package controllers;
 
 import static play.libs.Json.toJson;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +8,8 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
-import dao.ActualiteDao;
 import dao.DepotDao;
-import dao.UtilisateurDao;
 import entity.Depot;
-import entity.FilActualite;
-import entity.User;
 
 /**
  * @author nasser

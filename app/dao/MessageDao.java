@@ -1,9 +1,8 @@
 package dao;
 
 import java.util.List;
-import entity.Message;
-import entity.User;
 import play.db.jpa.JPA;
+import entity.Message;
 
 public class MessageDao
 {

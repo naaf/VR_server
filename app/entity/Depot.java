@@ -20,10 +20,10 @@ public class Depot {
 	private int id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date", nullable = false)
+	@Column(name = "date_creation", nullable = false)
 	private Date createDate;
 	
-	@Column(name = "subject", length= 256 ,nullable = true)
+	@Column(name = "suject", length= 256 ,nullable = true)
 	private String subject;
 	
 	@Column(name = "body", nullable = true)

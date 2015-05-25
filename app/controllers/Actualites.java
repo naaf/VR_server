@@ -1,7 +1,6 @@
 package controllers;
 
 import static play.libs.Json.toJson;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +9,7 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import dao.ActualiteDao;
-import dao.DepotDao;
-import dao.UtilisateurDao;
-import entity.Depot;
 import entity.FilActualite;
-import entity.User;
 
 /**
  * @author nasser
@@ -24,18 +19,18 @@ import entity.User;
  */
 public class Actualites extends Controller
 {
-
   @Transactional
-  public static void add()
+  public static Result add()
   {
     final Form<FilActualite> categoryForm = play.data.Form.form(FilActualite.class).bindFromRequest();
 
     final FilActualite category = categoryForm.get();
     ActualiteDao dao = new ActualiteDao();
     dao.save(category);
+    return ok(toJson("Ok"));
   }
 
-  @play.db.jpa.Transactional
+  @Transactional
   public static Result getAll()
   {
     ActualiteDao countryDao = new ActualiteDao();
@@ -46,4 +41,5 @@ public class Actualites extends Controller
     data.put("actualites", listContacts);
     return ok(toJson(data));
   }
+ 
 }
