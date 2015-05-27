@@ -29,6 +29,15 @@
 				<input name="password" placeholder="password">
 				<input name="roleUser" placeholder="roleUser">
 				<input name="typeUser" placeholder="typeUser">
+				<input name="residenceId" placeholder="residenceId">
+				<button type="submit">Ajouter le nouveau User</button>
+			</form>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Nouveau contact</legend>
+			<form method="post" action="/users/getContact">
+				<input name="id" placeholder="id">
 				<button type="submit">Ajouter le nouveau User</button>
 			</form>
 		</fieldset>
@@ -39,9 +48,45 @@
 				<input name="subject" placeholder="subject">
 				<input name="body" placeholder="body">
 				<input name="from" placeholder="from">
-				
+				<input name="residenceId" placeholder="residenceId">
 				<button type="submit">Ajouter le nouveau Actualite</button>
 			</form>
 		</fieldset>
+		
+		<fieldset>
+			<legend>Nouveau Messages</legend>
+			<form method="post" action="/messages/add">
+				<input name="subject" placeholder="subject">
+				<input name="body" placeholder="body">
+				<input name="from" placeholder="from">
+				<input name="to" placeholder="to">
+				<button type="submit">Ajouter le nouveau Messages</button>
+			</form>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Nouveau depots</legend>
+			<form method="post" action="/depots/add">
+				<input name="subject" placeholder="subject">
+				<input name="body" placeholder="body">
+				<input name="from" placeholder="from">
+				<input name="residenceId" placeholder="residenceId">
+				<button type="submit">Ajouter le nouveau Messages</button>
+			</form>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Nouveau Residence</legend>
+			<form method="post" action="/residences/add">
+				<input name="name" placeholder="name">
+				<input name="number" placeholder="number">
+				<input name="streetName" placeholder="streetName">
+				<input name="city" placeholder="city">
+				<input name="zipCode" placeholder="zipCode">
+				
+				<button type="submit">Ajouter le nouveau Residence</button>
+			</form>
+		</fieldset>
+		
     </body>
 </html>

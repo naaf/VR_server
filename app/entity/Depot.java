@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,8 +31,13 @@ public class Depot {
 	@Column(name = "body", nullable = true)
 	private String body;
 	
-	@Column(name = "from_id", nullable = false)
+
+	@Column(name = "from_id")
 	private Integer from;
+	
+  @Column(name = "residence_id", nullable = true)
+  private Integer residenceId;
+  
 	
 	@Column(name = "image")
 	private byte[] image;
@@ -90,13 +97,26 @@ public class Depot {
   {
     this.image = image;
   }
+  
+
+  public Integer getResidenceId()
+  {
+    return residenceId;
+  }
+
+  public void setResidenceId(Integer residenceId)
+  {
+    this.residenceId = residenceId;
+  }
 
   @Override
   public String toString()
   {
     return "Depot [id=" + id + ", createDate=" + createDate + ", subject=" + subject + ", body=" + body + ", from="
-        + from + ", image=" + Arrays.toString(image) + "]";
+        + from + ", residenceId=" + residenceId + ", image=" + Arrays.toString(image) + "]";
   }
+
+
 
 
 }

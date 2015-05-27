@@ -1,6 +1,7 @@
 package controllers;
 
 import static play.libs.Json.toJson;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,20 +27,21 @@ public class Messages extends Controller
     final Form<Message> categoryForm = play.data.Form.form(Message.class).bindFromRequest();
 
     final Message category = categoryForm.get();
+    category.setCreateDate(new Date());
     MessageDao dao = new MessageDao();
     dao.save(category);
     return ok(toJson("Ajouté"));
   }
 
   @play.db.jpa.Transactional
-  public static Result getAll()
+  public static Result getAll(Integer id)
   {
-    MessageDao countryDao = new MessageDao();
+    MessageDao messageDao = new MessageDao();
 
-    List<Message> listContacts = countryDao.findAll();
+    List<Message> listMessages = messageDao.findAll(id);
   
     Map<String, List<Message>> data = new HashMap<String, List<Message>>();
-    data.put("messages", listContacts);
+    data.put("messages", listMessages);
     return ok(toJson(data));
   }
 

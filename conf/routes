@@ -4,16 +4,20 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET     /users/getContacts          controllers.Users.getContacts()
-GET     /messages/getAll            controllers.Messages.getAll()
-GET     /depots/getAll              controllers.Depots.getAll()
-GET     /actualites/getAll          controllers.Actualites.getAll()
+GET     /users/getContacts          controllers.Users.getContacts(id:Integer)
+GET     /users/getContact            controllers.Users.getContact(id:Integer)
+GET     /messages/getAll            controllers.Messages.getAll(id:Integer)
+GET     /depots/getAll              controllers.Depots.getAll(id:Integer)
+GET     /actualites/getAll          controllers.Actualites.getAll(id:Integer)
+GET     /residences/getAll          controllers.Residences.getAll()
 
 POST    /users/add          		controllers.Users.add()
 POST    /users/authentification     controllers.Users.authentification()
 POST    /messages/add            	controllers.Messages.add()
 POST    /depots/add             	controllers.Depots.add()
 POST    /actualites/add          	controllers.Actualites.add()
+POST    /residences/add          	controllers.Residences.add()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,6 +1,7 @@
 package controllers;
 
 import static play.libs.Json.toJson;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,17 +26,18 @@ public class Depots extends Controller
     final Form<Depot> categoryForm = play.data.Form.form(Depot.class).bindFromRequest();
 
     final Depot category = categoryForm.get();
+    category.setCreateDate(new Date());
     DepotDao dao = new DepotDao();
     dao.save(category);
     return ok(toJson("Ajouté"));
   }
 
   @play.db.jpa.Transactional
-  public static Result getAll()
+  public static Result getAll(Integer id)
   {
     DepotDao countryDao = new DepotDao();
 
-    List<Depot> listContacts = countryDao.findAll();
+    List<Depot> listContacts = countryDao.findAll(id);
   
     Map<String, List<Depot>> data = new HashMap<String, List<Depot>>();
     data.put("depots", listContacts);

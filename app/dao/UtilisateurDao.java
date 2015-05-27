@@ -10,9 +10,9 @@ public class UtilisateurDao
     return JPA.em().find(User.class, id);
   }
   
-  public List<User> findAll()
+  public List<User> findAll(Integer id)
   {
-    List<User> l = JPA.em().createQuery("FROM User E").getResultList();
+    List<User> l = JPA.em().createQuery("select e from User e where e.residenceId = :valeur").setParameter("valeur",id).getResultList();
   
     return l;
   }

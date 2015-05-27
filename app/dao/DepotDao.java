@@ -10,15 +10,16 @@ public class DepotDao
     return JPA.em().find(Depot.class, id);
   }
   
-  public List<Depot> findAll()
-  {
-    List<Depot> l = JPA.em().createQuery("FROM Depot E").getResultList();
-  
-    return l;
-  }
   
   public void save(Depot c) {
     JPA.em().persist(c);
+  }
+  
+  public List<Depot> findAll(Integer residence)
+  {
+    List<Depot> l = JPA.em().createQuery("select e from Depot e where e.residenceId = :valeur").setParameter("valeur",residence).getResultList();
+  
+    return l;
   }
 
 

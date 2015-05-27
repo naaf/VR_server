@@ -43,17 +43,36 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserEnum typeUser;
 	
+	@Column(name = "residence_id", nullable = true)
+	private Integer residenceId;
+	
 	public User()
   {
     // TODO Auto-generated constructor stub
   }
 
 	
+  public Integer getResidenceId()
+  {
+    return residenceId;
+  }
+
+
+  public void setResidenceId(Integer residenceId)
+  {
+    this.residenceId = residenceId;
+  }
+
+
+
+
+
   @Override
   public String toString()
   {
     return "User [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", email=" + email
-        + ", password=" + password + ", roleUser=" + roleUser + ", typeUser=" + typeUser + "]";
+        + ", password=" + password + ", roleUser=" + roleUser + ", typeUser=" + typeUser + ", residenceId="
+        + residenceId + "]";
   }
 
 

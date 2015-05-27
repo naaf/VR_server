@@ -32,7 +32,7 @@ public class Users extends Controller
     dao.save(category);
     return ok(toJson("Ajouté"));
   }
-  
+
   @Transactional
   public static Result authentification()
   {
@@ -41,23 +41,35 @@ public class Users extends Controller
     final User category = categoryForm.get();
     UtilisateurDao dao = new UtilisateurDao();
     boolean response = dao.authentification(category.getEmail(), category.getPassword());
-    if(response)
-      return ok(toJson( category.getEmail() + " est connecté"));
+    if (response) return ok(toJson(category.getEmail() + " est connecté"));
     return ok(toJson("error " + category.getEmail() + " non inscrit"));
   }
 
   @play.db.jpa.Transactional
-  public static Result getContacts()
+  public static Result getContacts(Integer id)
   {
     UtilisateurDao countryDao = new UtilisateurDao();
 
-    List<User> listContacts = countryDao.findAll();
+    List<User> listContacts = countryDao.findAll(id);
     List<Contact> contacts = new ArrayList<Contact>();
-    for(User s : listContacts){
-      contacts.add(new Contact(s.getFirstName(), s.getEmail()));
+    for (User s : listContacts)
+    {
+      contacts.add(new Contact(s.getFirstName(), s.getEmail(), s.getId(), s.getResidenceId()));
     }
     Map<String, List<Contact>> data = new HashMap<String, List<Contact>>();
     data.put("contacts", contacts);
+    return ok(toJson(data));
+  }
+
+  @play.db.jpa.Transactional
+  public static Result getContact(Integer id)
+  {
+    UtilisateurDao countryDao = new UtilisateurDao();
+
+    User s = countryDao.findById(id);
+    Contact c = new Contact(s.getFirstName(), s.getEmail(), s.getId(), s.getResidenceId());
+    Map<String, Contact> data = new HashMap<String, Contact>();
+    data.put("contact", c);
     return ok(toJson(data));
   }
 

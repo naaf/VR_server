@@ -33,11 +33,11 @@ public class Actualites extends Controller
   }
 
   @Transactional
-  public static Result getAll()
+  public static Result getAll(Integer id)
   {
     ActualiteDao countryDao = new ActualiteDao();
 
-    List<FilActualite> listContacts = countryDao.findAll();
+    List<FilActualite> listContacts = countryDao.findAll(id);
   
     Map<String, List<FilActualite>> data = new HashMap<String, List<FilActualite>>();
     data.put("actualites", listContacts);

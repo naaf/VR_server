@@ -10,18 +10,16 @@ public class MessageDao
     return JPA.em().find(Message.class, id);
   }
   
-  public List<Message> findAll()
+  public List<Message> findAll(Integer to)
   {
-    List<Message> l = JPA.em().createQuery("FROM Message E").getResultList();
-  
+    List<Message> l = JPA.em().createQuery("select e from Message e where e.to = :valeur").setParameter("valeur",to).getResultList();
+    
     return l;
   }
   
   public void save(Message c) {
     JPA.em().persist(c);
   }
-
-
-
+  
 
 }
