@@ -23,13 +23,27 @@ public class Users extends Controller
 {
 
   @Transactional
-  public static void add()
+  public static Result add()
   {
     final Form<User> categoryForm = play.data.Form.form(User.class).bindFromRequest();
 
     final User category = categoryForm.get();
     UtilisateurDao dao = new UtilisateurDao();
     dao.save(category);
+    return ok(toJson("Ajouté"));
+  }
+  
+  @Transactional
+  public static Result authentification()
+  {
+    final Form<User> categoryForm = play.data.Form.form(User.class).bindFromRequest();
+
+    final User category = categoryForm.get();
+    UtilisateurDao dao = new UtilisateurDao();
+    boolean response = dao.authentification(category.getEmail(), category.getPassword());
+    if(response)
+      return ok(toJson( category.getEmail() + " est connecté"));
+    return ok(toJson("error " + category.getEmail() + " non inscrit"));
   }
 
   @play.db.jpa.Transactional

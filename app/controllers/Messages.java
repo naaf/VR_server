@@ -21,13 +21,14 @@ public class Messages extends Controller
 {
 
   @Transactional
-  public static void add()
+  public static Result add()
   {
     final Form<Message> categoryForm = play.data.Form.form(Message.class).bindFromRequest();
 
     final Message category = categoryForm.get();
     MessageDao dao = new MessageDao();
     dao.save(category);
+    return ok(toJson("Ajouté"));
   }
 
   @play.db.jpa.Transactional

@@ -19,6 +19,15 @@ public class UtilisateurDao
   public void save(User c) {
     JPA.em().persist(c);
   }
+  
+  public boolean authentification(String email, String password){
+    String req = "select user from User user where user.email = :valeur1 and user.password = :valeur2";
+    List<User> l =   JPA.em().createQuery(req).setParameter("valeur1",email).setParameter("valeur2", password).getResultList();
+    if( l.size() == 1)
+      return true;
+    return false;
+  }
+  
 
 
 

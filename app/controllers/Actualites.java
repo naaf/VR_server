@@ -1,6 +1,7 @@
 package controllers;
 
 import static play.libs.Json.toJson;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class Actualites extends Controller
     final Form<FilActualite> categoryForm = play.data.Form.form(FilActualite.class).bindFromRequest();
 
     final FilActualite category = categoryForm.get();
+    category.setCreateDate(new Date());
     ActualiteDao dao = new ActualiteDao();
     dao.save(category);
     return ok(toJson("Ok"));

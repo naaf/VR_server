@@ -11,5 +11,37 @@
     </head>
     <body>
         @content
+        <fieldset>
+			<legend>authentification User</legend>
+			<form method="post" action="/users/authentification">
+				<input name="email" placeholder="email">
+				<input name="password" placeholder="password">
+				<button type="submit">authentification User</button>
+			</form>
+		</fieldset>
+		
+        <fieldset>
+			<legend>Nouveau User</legend>
+			<form method="post" action="/users/add">
+				<input name="lastName" placeholder="lastName">
+				<input name="firstName" placeholder="firstName">
+				<input name="email" placeholder="email">
+				<input name="password" placeholder="password">
+				<input name="roleUser" placeholder="roleUser">
+				<input name="typeUser" placeholder="typeUser">
+				<button type="submit">Ajouter le nouveau User</button>
+			</form>
+		</fieldset>
+		
+		 <fieldset>
+			<legend>Nouveau Actualite</legend>
+			<form method="post" action="/actualites/add">
+				<input name="subject" placeholder="subject">
+				<input name="body" placeholder="body">
+				<input name="from" placeholder="from">
+				
+				<button type="submit">Ajouter le nouveau Actualite</button>
+			</form>
+		</fieldset>
     </body>
 </html>

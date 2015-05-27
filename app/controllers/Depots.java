@@ -20,13 +20,14 @@ import entity.Depot;
 public class Depots extends Controller
 {
   @Transactional
-  public static void add()
+  public static Result add()
   {
     final Form<Depot> categoryForm = play.data.Form.form(Depot.class).bindFromRequest();
 
     final Depot category = categoryForm.get();
     DepotDao dao = new DepotDao();
     dao.save(category);
+    return ok(toJson("Ajouté"));
   }
 
   @play.db.jpa.Transactional
