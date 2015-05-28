@@ -9,8 +9,11 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import dao.ResidenceDao;
 import dao.UtilisateurDao;
 import entity.Contact;
+import entity.Inscription;
+import entity.Residence;
 import entity.User;
 
 /**
@@ -25,11 +28,35 @@ public class Users extends Controller
   @Transactional
   public static Result add()
   {
-    final Form<User> categoryForm = play.data.Form.form(User.class).bindFromRequest();
+    final Form<Inscription> categoryForm = play.data.Form.form(Inscription.class).bindFromRequest();
 
-    final User category = categoryForm.get();
+    final Inscription c = categoryForm.get();
+    ResidenceDao daoRes = new ResidenceDao();
+    Residence r = new Residence();
+    
+    r.setCity(c.getCity());
+    r.setNumber(c.getNumber());
+    r.setStreetName(c.getStreetName());
+    r.setZipCode(c.getZipCode());
+    
+    Residence response = daoRes.findByAdress(r);
+    Integer id = null;
+    if( response == null){
+      id = daoRes.save(r);
+    }else{
+      id = response.getId();
+    }
     UtilisateurDao dao = new UtilisateurDao();
-    dao.save(category);
+    User s = new User();
+    s.setEmail(c.getEmail());
+    s.setFirstName(c.getFirstName());
+    s.setLastName(c.getLastName());
+    s.setPassword(c.getPassword());
+    s.setRoleUser(c.getRoleUser());
+    s.setTypeUser(c.getTypeUser());
+   
+    s.setResidenceId(id);
+    dao.save(s);
     return ok(toJson("Ajouté"));
   }
 

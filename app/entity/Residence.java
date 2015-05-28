@@ -34,7 +34,18 @@ public class Residence {
 	public Residence() {
 	}
 	
-	public int getNumber() {
+	
+	public Residence(int number, String streetName, String city, String zipCode)
+  {
+    super();
+    this.number = number;
+    this.streetName = streetName;
+    this.city = city;
+    this.zipCode = zipCode;
+  }
+
+
+  public int getNumber() {
 		return number;
 	}
 

@@ -52,6 +52,20 @@ public class User {
   }
 
 	
+  public User(String lastName, String firstName, String email, String password, RoleEnum roleUser, UserEnum typeUser,
+      Integer residenceId)
+  {
+    super();
+    this.lastName = lastName;
+    this.firstName = firstName;
+    this.email = email;
+    this.password = password;
+    this.roleUser = roleUser;
+    this.typeUser = typeUser;
+    this.residenceId = residenceId;
+  }
+
+
   public Integer getResidenceId()
   {
     return residenceId;

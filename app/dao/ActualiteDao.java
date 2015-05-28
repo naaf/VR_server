@@ -22,6 +22,8 @@ public class ActualiteDao
   public void save(FilActualite c) {
     JPA.em().persist(c);
   }
+  
+  
 
 
 
