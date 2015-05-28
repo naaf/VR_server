@@ -77,7 +77,7 @@ DROP TABLE "residence"
 
 CREATE TABLE "residence"(
  "id" Serial NOT NULL,
- "name" Character varying(128) NOT NULL,
+ "name" Character varying(128),
  "number" Integer NOT NULL,
  "street_name" Character varying(256) NOT NULL,
  "city" Character varying(256) NOT NULL,
