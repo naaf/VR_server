@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.xerces.impl.dv.dtd.IDDatatypeValidator;
+import play.Logger;
 import play.data.Form;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
@@ -12,6 +14,7 @@ import play.mvc.Result;
 import dao.ResidenceDao;
 import dao.UtilisateurDao;
 import entity.Contact;
+import entity.Identifiant;
 import entity.Inscription;
 import entity.Residence;
 import entity.User;
@@ -46,8 +49,15 @@ public class Users extends Controller
     }else{
       id = response.getId();
     }
+    
     UtilisateurDao dao = new UtilisateurDao();
+    
     User s = new User();
+    User s1 = dao.authentification(c.getEmail(), c.getPassword());
+    if( s1 != null){
+      return ok(toJson("Email exit déjà"));
+    }
+   
     s.setEmail(c.getEmail());
     s.setFirstName(c.getFirstName());
     s.setLastName(c.getLastName());
@@ -67,8 +77,15 @@ public class Users extends Controller
 
     final User category = categoryForm.get();
     UtilisateurDao dao = new UtilisateurDao();
-    boolean response = dao.authentification(category.getEmail(), category.getPassword());
-    if (response) return ok(toJson(category.getEmail() + " est connecté"));
+    User response = dao.authentification(category.getEmail(), category.getPassword());
+    if (response != null){
+      Map<String,Identifiant> data = new HashMap<String, Identifiant>();
+      Identifiant ident = new Identifiant();
+      ident.setIdResidence(response.getResidenceId());
+      ident.setIdUser(response.getId());
+      data.put("user", ident);
+      return ok(toJson(data));
+    }
     return ok(toJson("error " + category.getEmail() + " non inscrit"));
   }
 
