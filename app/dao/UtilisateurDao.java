@@ -24,6 +24,16 @@ public class UtilisateurDao
     return c.getId();
   }
   
+  public User findByMail(String email){
+    String req = "select user from User user where user.email = :valeur1 ";
+    List<User> l =   JPA.em().createQuery(req).setParameter("valeur1",email).getResultList();
+    if(l != null && l.size() > 0){
+      Logger.info("autentification " + l);
+      return l.get(0);
+    }
+    return null;
+  }
+  
   public User authentification(String email, String password){
     String req = "select user from User user where user.email = :valeur1 and user.password = :valeur2";
     List<User> l =   JPA.em().createQuery(req).setParameter("valeur1",email).setParameter("valeur2", password).getResultList();

@@ -59,7 +59,7 @@ public class Users extends Controller
     UtilisateurDao dao = new UtilisateurDao();
 
     User s = new User();
-    User s1 = dao.authentification(c.getEmail(), c.getPassword());
+    User s1 = dao.findByMail(c.getEmail());
     if (s1 != null)
     {
       data.put("status", Boolean.FALSE);
