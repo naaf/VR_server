@@ -17,6 +17,7 @@ import entity.Contact;
 import entity.Identifiant;
 import entity.Inscription;
 import entity.Residence;
+import entity.RoleEnum;
 import entity.User;
 
 /**
@@ -32,43 +33,68 @@ public class Users extends Controller
   public static Result add()
   {
     final Form<Inscription> categoryForm = play.data.Form.form(Inscription.class).bindFromRequest();
-    Map<String,Object> data = new HashMap<String, Object>();
+    Map<String, Object> data = new HashMap<String, Object>();
     final Inscription c = categoryForm.get();
     ResidenceDao daoRes = new ResidenceDao();
     Residence r = new Residence();
+    Identifiant ident = new Identifiant();
     
+
     r.setCity(c.getCity());
     r.setNumber(c.getNumber());
     r.setStreetName(c.getStreetName());
     r.setZipCode(c.getZipCode());
-    
+
     Residence response = daoRes.findByAdress(r);
     Integer id = null;
-    if( response == null){
+    if (response == null)
+    {
       id = daoRes.save(r);
-    }else{
+    }
+    else
+    {
       id = response.getId();
     }
-    
+
     UtilisateurDao dao = new UtilisateurDao();
-    
+
     User s = new User();
     User s1 = dao.authentification(c.getEmail(), c.getPassword());
-    if( s1 != null){
+    if (s1 != null)
+    {
       data.put("status", Boolean.FALSE);
       return ok(toJson(data));
     }
-   
+
     s.setEmail(c.getEmail());
     s.setFirstName(c.getFirstName());
     s.setLastName(c.getLastName());
     s.setPassword(c.getPassword());
-    s.setRoleUser(c.getRoleUser());
     s.setTypeUser(c.getTypeUser());
-   
+
+    if (dao.findExist(id))
+    {
+      s.setRoleUser(RoleEnum.HABITANT);
+    }
+    else
+    {
+      if (c.getRoleUser().compareTo("PRESIDENT_COPROPRIETE") == 0
+          || c.getRoleUser().compareTo("GARDIEN") == 0)
+      {
+        s.setRoleUser(RoleEnum.GERANT);
+      }else{
+        s.setRoleUser(RoleEnum.HABITANT);
+      }
+    }
+
     s.setResidenceId(id);
-    dao.save(s);
+    int idUser = dao.save(s);
+    ident.setIdResidence(id);
+    ident.setIdUser(idUser);
+    ident.setRole(s.getRoleUser());
+    
     data.put("status", Boolean.TRUE);
+    data.put("user", ident);
     return ok(toJson(data));
   }
 
@@ -76,15 +102,17 @@ public class Users extends Controller
   public static Result authentification()
   {
     final Form<User> categoryForm = play.data.Form.form(User.class).bindFromRequest();
-    Map<String,Object> data = new HashMap<String, Object>();
+    Map<String, Object> data = new HashMap<String, Object>();
     final User category = categoryForm.get();
     UtilisateurDao dao = new UtilisateurDao();
     User response = dao.authentification(category.getEmail(), category.getPassword());
-    if (response != null){
-      
+    if (response != null)
+    {
+
       Identifiant ident = new Identifiant();
       ident.setIdResidence(response.getResidenceId());
       ident.setIdUser(response.getId());
+      ident.setRole(response.getRoleUser());
       data.put("status", Boolean.TRUE);
       data.put("user", ident);
       return ok(toJson(data));
@@ -97,14 +125,14 @@ public class Users extends Controller
   public static Result getContacts(Integer id)
   {
     UtilisateurDao countryDao = new UtilisateurDao();
-    Map<String,Object> data = new HashMap<String, Object>();
+    Map<String, Object> data = new HashMap<String, Object>();
     List<User> listContacts = countryDao.findAll(id);
     List<Contact> contacts = new ArrayList<Contact>();
     for (User s : listContacts)
     {
       contacts.add(new Contact(s.getFirstName(), s.getEmail(), s.getId(), s.getResidenceId()));
     }
-    //Map<String, List<Contact>> data = new HashMap<String, List<Contact>>();
+    // Map<String, List<Contact>> data = new HashMap<String, List<Contact>>();
     data.put("status", Boolean.TRUE);
     data.put("contacts", contacts);
     return ok(toJson(data));
@@ -114,10 +142,10 @@ public class Users extends Controller
   public static Result getContact(Integer id)
   {
     UtilisateurDao countryDao = new UtilisateurDao();
-    Map<String,Object> data = new HashMap<String, Object>();
+    Map<String, Object> data = new HashMap<String, Object>();
     User s = countryDao.findById(id);
     Contact c = new Contact(s.getFirstName(), s.getEmail(), s.getId(), s.getResidenceId());
-   // Map<String, Contact> data = new HashMap<String, Contact>();
+    // Map<String, Contact> data = new HashMap<String, Contact>();
     data.put("status", Boolean.TRUE);
     data.put("contact", c);
     return ok(toJson(data));

@@ -23,7 +23,7 @@ public class Inscription
 
   private String password;
 
-  private RoleEnum roleUser;
+  private String roleUser;
 
   private UserEnum typeUser;
 
@@ -122,12 +122,12 @@ public class Inscription
     this.password = password;
   }
 
-  public RoleEnum getRoleUser()
+  public String getRoleUser()
   {
     return roleUser;
   }
 
-  public void setRoleUser(RoleEnum roleUser)
+  public void setRoleUser(String roleUser)
   {
     this.roleUser = roleUser;
   }

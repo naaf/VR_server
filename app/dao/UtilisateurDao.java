@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import play.Logger;
 import play.db.jpa.JPA;
+import entity.RoleEnum;
 import entity.User;
 
 public class UtilisateurDao
@@ -17,8 +18,10 @@ public class UtilisateurDao
   
     return l;
   }
-  public void save(User c) {
+  public int save(User c) {
     JPA.em().persist(c);
+    JPA.em().flush();
+    return c.getId();
   }
   
   public User authentification(String email, String password){
@@ -30,6 +33,17 @@ public class UtilisateurDao
     }
     Logger.info(" NON autentification " + email + ", " + password);
     return null;
+  }
+  
+  public boolean findExist(Integer id)
+  {
+    String req = "select e from User e where e.residenceId = :valeur and e.roleUser = :valeur1";
+    List<User> l = JPA.em().createQuery(req).setParameter("valeur",id).setParameter("valeur1",RoleEnum.GERANT).getResultList();
+    if(l != null && l.size() > 0){
+      Logger.info("autentification " + l);
+      return true;
+    }
+    return false;
   }
   
 
