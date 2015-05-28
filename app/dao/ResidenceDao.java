@@ -21,11 +21,14 @@ public class ResidenceDao
 
   public int save(Residence c)
   {
-    JPA.em().persist(c);
-    JPA.em().flush();
-    Logger.info("insertion de la résidence :" + c.toString());
-    return c.getId();
-
+    if (c != null)
+    {
+      JPA.em().persist(c);
+      JPA.em().flush();
+      Logger.info("insertion de la résidence :" + c.toString());
+      return c.getId();
+    }
+    return 0;
   }
 
   public Residence findByAdress(Residence r)

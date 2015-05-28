@@ -19,9 +19,14 @@ public class UtilisateurDao
     return l;
   }
   public int save(User c) {
-    JPA.em().persist(c);
-    JPA.em().flush();
-    return c.getId();
+    if (c != null)
+    {
+      JPA.em().persist(c);
+      JPA.em().flush();
+      return c.getId();
+    }
+    return 0;
+    
   }
   
   public User findByMail(String email){

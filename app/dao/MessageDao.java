@@ -18,7 +18,19 @@ public class MessageDao
   }
   
   public void save(Message c) {
-    JPA.em().persist(c);
+    if (c != null)
+    {
+      JPA.em().persist(c);
+    }
+  }
+
+  public void delete(Message c)
+  {
+    if (c != null)
+    {
+      JPA.em().remove(c);
+    }
+    
   }
   
 

@@ -10,6 +10,7 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 import dao.ActualiteDao;
+import dao.DepotDao;
 import entity.FilActualite;
 
 /**
@@ -35,12 +36,22 @@ public class Actualites extends Controller
   @Transactional
   public static Result getAll(Integer id)
   {
-    ActualiteDao countryDao = new ActualiteDao();
+    ActualiteDao actualiteDao = new ActualiteDao();
 
-    List<FilActualite> listContacts = countryDao.findAll(id);
+    List<FilActualite> listContacts = actualiteDao.findAll(id);
   
     Map<String, List<FilActualite>> data = new HashMap<String, List<FilActualite>>();
     data.put("actualites", listContacts);
+    return ok(toJson(data));
+  }
+  
+  @play.db.jpa.Transactional
+  public static Result delete(Integer id)
+  {
+    Map<String, Object> data = new HashMap<String, Object>();
+    ActualiteDao actualiteDao = new ActualiteDao();
+    actualiteDao.delete(actualiteDao.findById(id));
+    data.put("status", Boolean.TRUE);
     return ok(toJson(data));
   }
  

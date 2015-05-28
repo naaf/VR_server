@@ -20,7 +20,21 @@ public class ActualiteDao
 
   
   public void save(FilActualite c) {
-    JPA.em().persist(c);
+    if (c != null)
+    {
+      JPA.em().persist(c);
+    }
+    
+  }
+
+  public void delete(FilActualite c)
+  {
+    if (c != null)
+    {
+      JPA.em().remove(c);
+    }
+
+    
   }
   
   

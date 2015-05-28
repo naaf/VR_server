@@ -44,5 +44,17 @@ public class Messages extends Controller
     data.put("messages", listMessages);
     return ok(toJson(data));
   }
+  
+  @play.db.jpa.Transactional
+  public static Result delete(Integer id)
+  {
+    Map<String, Object> data = new HashMap<String, Object>();
+    MessageDao messageDao = new MessageDao();
+    messageDao.delete(messageDao.findById(id));
+    data.put("status", Boolean.TRUE);
+    return ok(toJson(data));
+  }
+  
+  
 
 }
