@@ -32,7 +32,7 @@ public class Users extends Controller
   public static Result add()
   {
     final Form<Inscription> categoryForm = play.data.Form.form(Inscription.class).bindFromRequest();
-
+    Map<String,Object> data = new HashMap<String, Object>();
     final Inscription c = categoryForm.get();
     ResidenceDao daoRes = new ResidenceDao();
     Residence r = new Residence();
@@ -55,7 +55,8 @@ public class Users extends Controller
     User s = new User();
     User s1 = dao.authentification(c.getEmail(), c.getPassword());
     if( s1 != null){
-      return ok(toJson("Email exit déjà"));
+      data.put("status", Boolean.FALSE);
+      return ok(toJson(data));
     }
    
     s.setEmail(c.getEmail());
@@ -67,40 +68,44 @@ public class Users extends Controller
    
     s.setResidenceId(id);
     dao.save(s);
-    return ok(toJson("Ajouté"));
+    data.put("status", Boolean.TRUE);
+    return ok(toJson(data));
   }
 
   @Transactional
   public static Result authentification()
   {
     final Form<User> categoryForm = play.data.Form.form(User.class).bindFromRequest();
-
+    Map<String,Object> data = new HashMap<String, Object>();
     final User category = categoryForm.get();
     UtilisateurDao dao = new UtilisateurDao();
     User response = dao.authentification(category.getEmail(), category.getPassword());
     if (response != null){
-      Map<String,Identifiant> data = new HashMap<String, Identifiant>();
+      
       Identifiant ident = new Identifiant();
       ident.setIdResidence(response.getResidenceId());
       ident.setIdUser(response.getId());
+      data.put("status", Boolean.TRUE);
       data.put("user", ident);
       return ok(toJson(data));
     }
-    return ok(toJson("error " + category.getEmail() + " non inscrit"));
+    data.put("status", Boolean.FALSE);
+    return ok(toJson(data));
   }
 
   @play.db.jpa.Transactional
   public static Result getContacts(Integer id)
   {
     UtilisateurDao countryDao = new UtilisateurDao();
-
+    Map<String,Object> data = new HashMap<String, Object>();
     List<User> listContacts = countryDao.findAll(id);
     List<Contact> contacts = new ArrayList<Contact>();
     for (User s : listContacts)
     {
       contacts.add(new Contact(s.getFirstName(), s.getEmail(), s.getId(), s.getResidenceId()));
     }
-    Map<String, List<Contact>> data = new HashMap<String, List<Contact>>();
+    //Map<String, List<Contact>> data = new HashMap<String, List<Contact>>();
+    data.put("status", Boolean.TRUE);
     data.put("contacts", contacts);
     return ok(toJson(data));
   }
@@ -109,10 +114,11 @@ public class Users extends Controller
   public static Result getContact(Integer id)
   {
     UtilisateurDao countryDao = new UtilisateurDao();
-
+    Map<String,Object> data = new HashMap<String, Object>();
     User s = countryDao.findById(id);
     Contact c = new Contact(s.getFirstName(), s.getEmail(), s.getId(), s.getResidenceId());
-    Map<String, Contact> data = new HashMap<String, Contact>();
+   // Map<String, Contact> data = new HashMap<String, Contact>();
+    data.put("status", Boolean.TRUE);
     data.put("contact", c);
     return ok(toJson(data));
   }
