@@ -30,8 +30,21 @@ public class Message
 
   @Column(name = "body", nullable = true)
   private String body;
-
+  
+  @Column(name = "name", nullable = true)
+  private String name;
+  
  
+  public String getName()
+  {
+    return name;
+  }
+
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
   @Column(name = "from_id")
   private Integer from;
 

@@ -27,7 +27,9 @@ public class Messages extends Controller
     final Form<Message> categoryForm = play.data.Form.form(Message.class).bindFromRequest();
     Map<String, Object> data = new HashMap<String, Object>();
     final Message category = categoryForm.get();
-    category.setCreateDate(new Date());
+    if(category.getCreateDate() == null){
+      category.setCreateDate(new Date());
+    }
     MessageDao dao = new MessageDao();
     dao.save(category);
     data.put("status", Boolean.TRUE);

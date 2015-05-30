@@ -37,6 +37,19 @@ public class FilActualite
   @Column(name = "residence_id", nullable = true)
   private Integer residenceId;
   
+  @Column(name = "name", nullable = true)
+  private String name;
+  
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public void setName(String name)
+  {
+    this.name = name;
+  }
 
   public FilActualite()
   {}

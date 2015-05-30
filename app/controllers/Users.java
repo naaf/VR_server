@@ -92,6 +92,7 @@ public class Users extends Controller
     ident.setIdResidence(id);
     ident.setIdUser(idUser);
     ident.setRole(s.getRoleUser());
+    ident.setName(s.getFirstName());
     
     data.put("status", Boolean.TRUE);
     data.put("user", ident);
@@ -113,6 +114,7 @@ public class Users extends Controller
       ident.setIdResidence(response.getResidenceId());
       ident.setIdUser(response.getId());
       ident.setRole(response.getRoleUser());
+      ident.setName(response.getFirstName());
       data.put("status", Boolean.TRUE);
       data.put("user", ident);
       return ok(toJson(data));

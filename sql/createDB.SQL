@@ -1,6 +1,6 @@
 ﻿/*
 Created: 24/05/2015
-Modified: 27/05/2015
+Modified: 30/05/2015
 Model: VR
 Database: PostgreSQL 9.2
 */
@@ -124,7 +124,8 @@ CREATE TABLE "fil_actualite"(
  "date_creation" Timestamp NOT NULL,
  "body" Text,
  "residence_id" Integer,
- "from_id" Integer
+ "from_id" Integer,
+ "name" Character varying(128)
 )
 WITH (OIDS=FALSE)
 ;
@@ -150,7 +151,8 @@ CREATE TABLE "message"(
  "body" Text,
  "date_creation" Timestamp NOT NULL,
  "from_id" Integer,
- "to_id" Integer
+ "to_id" Integer,
+ "name" Character varying(128)
 )
 WITH (OIDS=FALSE)
 ;
@@ -178,7 +180,8 @@ CREATE TABLE "depot"(
  "disponibiilte" Character varying(15) NOT NULL,
  "date_creation" Timestamp NOT NULL,
  "residence_id" Integer,
- "from_id" Integer
+ "from_id" Integer,
+ "name" Character varying(128)
 )
 WITH (OIDS=FALSE)
 ;

@@ -42,10 +42,23 @@ public class Depot {
 	@Column(name = "image")
 	private byte[] image;
 	
+	@Column(name = "name", nullable = true)
+  private String name;
 	
 	
 	
-	public Depot() {
+	
+	public String getName()
+  {
+    return name;
+  }
+
+  public void setName(String name)
+  {
+    this.name = name;
+  }
+
+  public Depot() {
 	}
 
 	public int getId() {

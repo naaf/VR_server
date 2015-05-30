@@ -5,6 +5,7 @@ public class Identifiant
   private  int idUser;
   private int idResidence;
   private RoleEnum role;
+  private String name;
   public Identifiant()
   {
     // TODO Auto-generated constructor stub
@@ -32,6 +33,15 @@ public class Identifiant
   public void setRole(RoleEnum role)
   {
     this.role = role;
+  }
+  
+  public String getName()
+  {
+    return name;
+  }
+  public void setName(String name)
+  {
+    this.name = name;
   }
   @Override
   public String toString()
