@@ -121,7 +121,7 @@ ALTER TABLE "utilisateur" ADD CONSTRAINT "Key2" PRIMARY KEY ("id")
 CREATE TABLE "fil_actualite"(
  "id" Serial NOT NULL,
  "suject" Character varying(256) NOT NULL,
- "date_creation" Timestamp NOT NULL,
+ "date_creation" Character varying(256) NOT NULL,
  "body" Text,
  "residence_id" Integer,
  "from_id" Integer,
@@ -149,7 +149,7 @@ CREATE TABLE "message"(
  "id" Serial NOT NULL,
  "suject" Character varying(256),
  "body" Text,
- "date_creation" Timestamp NOT NULL,
+ "date_creation" Character varying(256) NOT NULL,
  "from_id" Integer,
  "to_id" Integer,
  "name" Character varying(128)
@@ -178,7 +178,7 @@ CREATE TABLE "depot"(
  "suject" Character varying(256) NOT NULL,
  "body" Text NOT NULL,
  "disponibiilte" Character varying(15) NOT NULL,
- "date_creation" Timestamp NOT NULL,
+ "date_creation" Character varying(256) NOT NULL,
  "residence_id" Integer,
  "from_id" Integer,
  "name" Character varying(128)

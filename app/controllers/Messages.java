@@ -27,9 +27,7 @@ public class Messages extends Controller
     final Form<Message> categoryForm = play.data.Form.form(Message.class).bindFromRequest();
     Map<String, Object> data = new HashMap<String, Object>();
     final Message category = categoryForm.get();
-    if(category.getCreateDate() == null){
-      category.setCreateDate(new Date());
-    }
+    
     MessageDao dao = new MessageDao();
     dao.save(category);
     data.put("status", Boolean.TRUE);
@@ -43,8 +41,9 @@ public class Messages extends Controller
 
     List<Message> listMessages = messageDao.findAll(id);
   
-    Map<String, List<Message>> data = new HashMap<String, List<Message>>();
+    Map<String, Object> data = new HashMap<String, Object>();
     data.put("messages", listMessages);
+    data.put("status", Boolean.TRUE);
     return ok(toJson(data));
   }
   

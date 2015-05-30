@@ -25,22 +25,21 @@ public class Depots extends Controller
   public static Result add()
   {
     final Form<Depot> categoryForm = play.data.Form.form(Depot.class).bindFromRequest();
-
+    Map<String, Object> data = new HashMap<String, Object>();
     final Depot category = categoryForm.get();
-    category.setCreateDate(new Date());
     DepotDao dao = new DepotDao();
     dao.save(category);
-    return ok(toJson("Ajouté"));
+    data.put("status", Boolean.TRUE);
+    return ok(toJson(data));
   }
 
   @play.db.jpa.Transactional
   public static Result getAll(Integer id)
   {
     DepotDao depotDao = new DepotDao();
-
+    Map<String, Object> data = new HashMap<String, Object>();
     List<Depot> listContacts = depotDao.findAll(id);
-  
-    Map<String, List<Depot>> data = new HashMap<String, List<Depot>>();
+    data.put("status", Boolean.TRUE);
     data.put("depots", listContacts);
     return ok(toJson(data));
   }

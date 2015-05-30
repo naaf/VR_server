@@ -21,9 +21,8 @@ public class Depot {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_creation", nullable = false)
-	private Date createDate;
+	@Column(name = "date_creation", length= 256, nullable = false)
+	private String createDate;
 	
 	@Column(name = "suject", length= 256 ,nullable = true)
 	private String subject;
@@ -69,11 +68,11 @@ public class Depot {
 		this.id = id;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 

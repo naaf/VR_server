@@ -25,12 +25,12 @@ public class Actualites extends Controller
   public static Result add()
   {
     final Form<FilActualite> categoryForm = play.data.Form.form(FilActualite.class).bindFromRequest();
-
+    Map<String, Object> data = new HashMap<String, Object>();
     final FilActualite category = categoryForm.get();
-    category.setCreateDate(new Date());
     ActualiteDao dao = new ActualiteDao();
     dao.save(category);
-    return ok(toJson("Ok"));
+    data.put("status", Boolean.TRUE);
+    return ok(toJson(data));
   }
 
   @Transactional
