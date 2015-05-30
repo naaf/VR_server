@@ -30,6 +30,9 @@ public class Depot {
 	@Column(name = "body", nullable = true)
 	private String body;
 	
+	@Column(name = "disponibiilte", nullable = false)
+	private String disponibilite;
+	
 
 	@Column(name = "from_id")
 	private Integer from;
@@ -119,6 +122,18 @@ public class Depot {
   public void setResidenceId(Integer residenceId)
   {
     this.residenceId = residenceId;
+  }
+  
+  
+
+  public String getDisponibilite()
+  {
+    return disponibilite;
+  }
+
+  public void setDisponibilite(String disponibilite)
+  {
+    this.disponibilite = disponibilite;
   }
 
   @Override
